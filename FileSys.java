@@ -21,7 +21,7 @@
  * Note of the file system
  * -The read and write operations will be only for one process to execute and only one user to use.
  */
-
+import java.io.*;
 
 public class FileSys{
 	
@@ -37,8 +37,7 @@ public class FileSys{
 	}
 	
 	public static MFile create(String path){
-		//Check first ir the file is on the open file table if it is you have to wait untis is close
-		//If file is close then need to search on the directory with the path if the file is already created
+		//search on the directory with the path if the file is already created
 		//If is not created now we can created.
 		//We need to find space to create the file when we find the space now we can create the instance and specify
 		//the block of space the name and the size (all metadata)
@@ -47,14 +46,13 @@ public class FileSys{
 	
 	public static MFile write(String path, FileOutputStream data){
 		//Need to search on the open file table if the file is open, we need the file open to write the data on it
-		//We need to search on the directory (tree) for the file if exists, we need the file to exist on the directory
 		//With the MFile instance we get the block we are going to write and set the data on the specific block of memory
 		
 	}
 	
 	public static FileInputStream read(String path){
 		//The read method need the instance of the File from the open file table and then read the content from a 
-		//specific blockIndex. Also the file need to exist on the directory and return all the data from the memory
+		//specific blockIndex. 
 	}
 	
 	public static boolean delete(String path){
