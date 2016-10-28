@@ -20,7 +20,7 @@
  * 
  * 
  */
-
+import java.util.*;
 
 public class MFile{
 	
@@ -28,6 +28,7 @@ public class MFile{
 	private String type;
 	private short location;
 	private short size;
+	private Date date;
 	
 	public String getName(){
 		return this.name;
@@ -54,6 +55,14 @@ public class MFile{
 		this.location = location;
 	}
 	
+	public Date getDate(){
+		return this.date;
+	}
 	
+	public void setDate(Date date){
+		//maybe the args are the year, month, day and time
+		this.date = date;
+	}
 }
+
 
