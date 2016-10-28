@@ -26,6 +26,28 @@ public class MFolder extends IFile{
 	
 	protected ArrayList<IFile> files;
 	
+	public MFolder(){
+		setType(FileType.FOLDER);
+	}
+	
+	public short getLocation(){
+		return this.location;
+	}
+	
+	public void setLocation(short location){
+		
+		this.location = location;
+	}
+	
+	public short getSize(){
+		return this.size;
+	}
+	
+	public void setSize(short size){
+		//need to get all the content on bytes
+		this.size = size;
+	}
+	
 	public ArrayList<IFile> getFiles(){
 		return this.files;
 	}
@@ -36,7 +58,7 @@ public class MFolder extends IFile{
 	
 	public void addFile(IFile file){
 		if(this.files == null){
-			files = new ArrayList<IFiles>();
+			files = new ArrayList<IFile>();
 		}
 		this.files.add(file);
 	}

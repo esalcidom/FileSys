@@ -25,7 +25,7 @@ import java.util.*;
 public abstract class IFile{
 	
 	String name;
-	String type;
+	FileType type;
 	short location;
 	short size;
 	Date date;
@@ -39,11 +39,11 @@ public abstract class IFile{
 		this.name = name;
 	}
 	
-	public String getType(){
+	public FileType getType(){
 		return this.type;
 	}
 	
-	public void setType(String type){
+	public void setType(FileType type){
 		this.type = type;
 	}
 	

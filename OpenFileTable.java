@@ -36,17 +36,17 @@ public class OpenFileTable{
 		return table;
 	}
 	
-	public void addFile(MFile){
+	public void addFile(MFile file){
 		if(openFiles == null){
 			openFiles = new ArrayList<MFile>();
 		}
-		this.openFiles.add(MFile);
+		this.openFiles.add(file);
 	}
 	
 	public MFile getFile(String fileName){
 		//the name of the file need to have the extention. NOT the path
 		for(MFile file : openFiles){
-			if(file.getName().equal(fileName)){
+			if(file.getName().equals(fileName)){
 				return file;
 			}
 		}
