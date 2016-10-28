@@ -24,22 +24,7 @@ import java.util.*;
 
 public class MFile extends IFile{
 	
-	public String getName(){
-		return this.name;
-	}
-	
-	public void setName(String name){
-		this.name = name;
-	}
-	
-	public String getType(){
-		return this.type;
-	}
-	
-	public void setType(String type){
-		this.type = type;
-	}
-	
+
 	public short getLocation(){
 		return this.location;
 	}
@@ -58,22 +43,6 @@ public class MFile extends IFile{
 		this.size = size;
 	}
 	
-	public Date getDate(){
-		return this.date;
-	}
-	
-	public void setDate(Date date){
-		//maybe the args are the year, month, day and time
-		this.date = date;
-	}
-	
-	public String getProtection(){
-		return this.protection;
-	}
-	
-	public void setProtection(String protection){
-		this.protection = protection;
-	}
 }
 
 

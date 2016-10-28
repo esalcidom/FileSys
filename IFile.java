@@ -31,18 +31,44 @@ public abstract class IFile{
 	Date date;
 	String protection;
 	
-	public abstract String getName();
-	public abstract void setName(String name);
-	public abstract String getType();
-	public abstract void setType(String type);
+	public String getName(){
+		return this.name;
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+	
+	public String getType(){
+		return this.type;
+	}
+	
+	public void setType(String type){
+		this.type = type;
+	}
+	
+	public Date getDate(){
+		return this.date;
+	}
+	
+	public void setDate(Date date){
+		//maybe the args are the year, month, day and time
+		this.date = date;
+	}
+	
+	public String getProtection(){
+		return this.protection;
+	}
+	
+	public void setProtection(String protection){
+		this.protection = protection;
+	}
+	
 	public abstract short getLocation();
 	public abstract void setLocation(short location);
 	public abstract short getSize();
 	public abstract void setSize(short size);
-	public abstract Date getDate();
-	public abstract void setDate(Date date);
-	public abstract String getProtection();
-	public abstract void setProtection(String protection);
+	
 	
 	public static String getNameFromPath(String path){
 		String[] values = path.split("/");
