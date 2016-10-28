@@ -63,6 +63,11 @@ public class MFile{
 		//maybe the args are the year, month, day and time
 		this.date = date;
 	}
+
+	public static String getNameFromPath(String path){
+		String[] values = path.split("/");
+		return values[values.length-1];
+	}
 }
 
 

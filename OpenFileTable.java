@@ -44,7 +44,7 @@ public class OpenFileTable{
 	}
 	
 	public MFile getFile(String fileName){
-		//the name of the file need to have the extention
+		//the name of the file need to have the extention. NOT the path
 		for(MFile file : openFiles){
 			if(file.getName().equal(fileName)){
 				return file;

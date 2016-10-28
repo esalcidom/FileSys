@@ -25,6 +25,7 @@ import java.io.*;
 
 public class FileSys{
 	
+	private OpenFileTable openTable;
 	
 	public static void main (String args[]) {
 		
@@ -33,7 +34,16 @@ public class FileSys{
 	public static MFile open(String path, short blockIndex){
 		//Check first on the open file table if the file is alredy open and take the instance
 		//If not in the table, check the path on the directory to see if file exists
-		
+		if(openTable == null){
+			openTable = OpenFileTable.getTable();
+		}
+		MFile file = openTable.getFile(MFile.getNameFromPath(path));
+		if(file == null){
+			//search on the directory
+		}
+		else{
+			return file;
+		}
 	}
 	
 	public static MFile create(String path){
