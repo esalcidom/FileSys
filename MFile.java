@@ -22,13 +22,7 @@
  */
 import java.util.*;
 
-public class MFile{
-	
-	private String name;
-	private String type;
-	private short location;
-	private short size;
-	private Date date;
+public class MFile extends IFile{
 	
 	public String getName(){
 		return this.name;
@@ -42,7 +36,7 @@ public class MFile{
 		return this.type;
 	}
 	
-	public void setName(String type{
+	public void setType(String type){
 		this.type = type;
 	}
 	
@@ -55,6 +49,15 @@ public class MFile{
 		this.location = location;
 	}
 	
+	public short getSize(){
+		return this.size;
+	}
+	
+	public void setSize(short size){
+		//need to get all the content on bytes
+		this.size = size;
+	}
+	
 	public Date getDate(){
 		return this.date;
 	}
@@ -63,10 +66,13 @@ public class MFile{
 		//maybe the args are the year, month, day and time
 		this.date = date;
 	}
-
-	public static String getNameFromPath(String path){
-		String[] values = path.split("/");
-		return values[values.length-1];
+	
+	public String getProtection(){
+		return this.protection;
+	}
+	
+	public void setProtection(String protection){
+		this.protection = protection;
 	}
 }
 
