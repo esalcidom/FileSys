@@ -53,21 +53,33 @@ public class Directory{
 		//detect if the name is for a file or a directory to serach on the correct list
 		//if is a directory now the pointer moves if found
 		String[] absolutePath = path.split("/");
+		String fileName = absolutePath[absolutePath.length-1];
+		MFolder pointer = getPointerOfPath(path);
+		return pointer.searchFile(fileName);
+		
+	}
+	
+	public void addFileToPath(String path){
+		//add a file to a absolute path if the entire path exist
+		String[] absolutePath = path.split("/");
+		String fileName = absolutePath[absolutePath.length-1];
+		MFolder pointer = getPointerOfPath(path);
+		pointer.addFile(new MFile(fileName));
+	}
+	
+	private MFolder getPointerOfPath(String path){
+		String[] absolutePath = path.split("/");
 		MFolder pointer = rootFolder;
 		for(String fileName : absolutePath){
-			if(fileName.contains(".")){
-				return pointer.searchFile(fileName);
-			}
-			else{
+			if(!fileName.contains(".")){
 				pointer = pointer.searchFolder(fileName);
-				if(pointer==null){
+				if(pointer == null){
 					return null;
 				}
 			}
 		}
-		return null;
+		return pointer;
 	}
-	
 	
 }
 

@@ -24,6 +24,10 @@ import java.util.*;
 
 public class MFile extends IFile{
 	
+	
+	public MFile(String name){
+		this.name = name;
+	}
 
 	public short getLocation(){
 		return this.location;

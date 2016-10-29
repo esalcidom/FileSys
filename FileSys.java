@@ -35,12 +35,7 @@ public class FileSys{
 	public static MFile open(String path, short blockIndex){
 		//Check first on the open file table if the file is alredy open and take the instance
 		//If not in the table, check the path on the directory to see if file exists
-		if(openTable == null){
-			openTable = OpenFileTable.getTable();
-		}
-		if(directory == null){
-			directory = Directory.getDirectory();
-		}
+		init();
 		MFile file = openTable.getFile(IFile.getNameFromPath(path));
 		if(file == null){
 			//search on the directory
@@ -64,6 +59,20 @@ public class FileSys{
 		//We need to find space to create the file when we find the space now we can create the instance and specify
 		//the block of space the name and the size (all metadata)
 		//Then we add the file to our directory (tree)
+		init();
+		MFile file = openTable.getFile(IFile.getNameFromPath(path));
+		if(file == null){
+			//search on the directory
+			file = directory.searchFile(path);
+			if(file == null){
+				directory.addFileToPath(path);
+				//maybe we don't need to return te file only to add exceptions to handle null values
+				return directory.searchFile(path);
+			}
+			else{
+				return null;
+			}
+		}
 	}
 	
 	public static MFile write(String path, FileOutputStream data){
@@ -82,6 +91,15 @@ public class FileSys{
 		//Search on the directory the file and then delete all the data on the blocks asign to the file to make them
 		//available and delete the instance from the directory
 		//return true if the operation was success or false if cannot delete the file
+	}
+	
+	public static void init(){
+		if(openTable == null){
+			openTable = OpenFileTable.getTable();
+		}
+		if(directory == null){
+			directory = Directory.getDirectory();
+		}
 	}
 	
 }
