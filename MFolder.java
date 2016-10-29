@@ -24,9 +24,11 @@ import java.util.*;
 
 public class MFolder extends IFile{
 	
-	protected ArrayList<IFile> files;
+	protected ArrayList<MFile> files;
+	protected ArrayList<MFolder> folders;
 	
-	public MFolder(){
+	public MFolder(String name){
+		this.name = name;
 		setType(FileType.FOLDER);
 	}
 	
@@ -48,19 +50,50 @@ public class MFolder extends IFile{
 		this.size = size;
 	}
 	
-	public ArrayList<IFile> getFiles(){
+	public ArrayList<MFile> getFiles(){
 		return this.files;
 	}
 	
-	public void setFiles(ArrayList<IFile> files){
+	public void setFiles(ArrayList<MFile> files){
 		this.files = files;
 	}
 	
-	public void addFile(IFile file){
+	public void addFile(MFile file){
 		if(this.files == null){
-			files = new ArrayList<IFile>();
+			files = new ArrayList<MFile>();
 		}
 		this.files.add(file);
+	}
+	
+	public ArrayList<MFolder> getFolders(){
+		return this.folders;
+	}
+	
+	public void setFolder(ArrayList<MFolder> folders){
+		this.folders = folders;
+	}
+	
+	public void addFolder(MFolder folder){
+		if(this.folders == null){
+			folders = new ArrayList<MFolder>();
+		}
+		this.folders.add(folder);
+	}
+	
+	public MFolder searchFolder(String name){
+		for(MFolder f : folders){
+			if(f.getName().equals(name))
+				return f;
+		}
+		return null;
+	}
+	
+	public MFile searchFile(String name){
+		for(MFile f : files){
+			if(f.getName().equals(name))
+				return f;
+		}
+		return null;
 	}
 	
 }
