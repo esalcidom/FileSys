@@ -96,5 +96,14 @@ public class MFolder extends IFile{
 		return null;
 	}
 	
+	public boolean deleteFile(String name){
+		MFile file = searchFile(name);
+		if(file!=null){
+			file = null;
+			return true;
+		}
+		return false;
+	}
+	
 }
 

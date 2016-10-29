@@ -35,43 +35,60 @@ public class FileSys{
 	public static MFile open(String path, short blockIndex){
 		//Check first on the open file table if the file is alredy open and take the instance
 		//If not in the table, check the path on the directory to see if file exists
-		init();
-		MFile file = openTable.getFile(IFile.getNameFromPath(path));
-		if(file == null){
-			//search on the directory
-			file = directory.searchFile(path);
+		try{
+			init();
+			MFile file = openTable.getFile(IFile.getNameFromPath(path));
+			//if the file is not on the open file table now we search on the directory to open it
 			if(file == null){
-				return null;
+				//search on the directory
+				file = directory.searchFile(path);
+				if(file == null){
+					new Exception("The file is not on the directory");
+				}
+				else{
+					openTable.addFile(file);
+					return file;
+				}
 			}
+			//if the file is already on the open file table we send the message
 			else{
-				openTable.addFile(file);
-				return file;
+				new Exception("The file is already on table");
 			}
 		}
-		else{
-			return file;
+		catch(Exception e){
+			System.out.println(e.getMessage());
 		}
 	}
 	
-	public static MFile create(String path){
+	public static void create(String path){
 		//search on the directory with the path if the file is already created
 		//If is not created now we can created.
 		//We need to find space to create the file when we find the space now we can create the instance and specify
 		//the block of space the name and the size (all metadata)
 		//Then we add the file to our directory (tree)
-		init();
-		MFile file = openTable.getFile(IFile.getNameFromPath(path));
-		if(file == null){
-			//search on the directory
-			file = directory.searchFile(path);
+		try{
+			init();
+			MFile file = openTable.getFile(IFile.getNameFromPath(path));
+			//if the file is not in the open file table we now search on the directory
 			if(file == null){
-				directory.addFileToPath(path);
-				//maybe we don't need to return te file only to add exceptions to handle null values
-				return directory.searchFile(path);
+				//search if the file is already exist or not on the directory
+				file = directory.searchFile(path);
+				//if not exist now add the file
+				if(file == null){
+					//add the new file
+					directory.addFileToPath(path);
+				}
+				else{
+					new Exception("the file already exist");
+				}
 			}
+			//if the file is in the open file talbe we send the message
 			else{
-				return null;
+				new Exception("File is alredy created and open");
 			}
+		}
+		catch(Exception e){
+			System.out.println(e.getMessage());
 		}
 	}
 	

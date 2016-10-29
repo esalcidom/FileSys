@@ -64,7 +64,26 @@ public class Directory{
 		String[] absolutePath = path.split("/");
 		String fileName = absolutePath[absolutePath.length-1];
 		MFolder pointer = getPointerOfPath(path);
-		pointer.addFile(new MFile(fileName));
+		if(pointer!=null){
+			pointer.addFile(new MFile(fileName));
+		}
+		else{
+			return null;
+		}
+	}
+	
+	public boolean deleteFileToPath(){
+		//delete a file to a absolute path if the entire path and file exist
+		String[] absolutePath = path.split("/");
+		String fileName = absolutePath[absolutePath.length-1];
+		MFolder pointer = getPointerOfPath(path);
+		if(pointer!=null){
+			//search for the file with the name
+			return pointer.deleteFile(fileName);
+		}
+		else{
+			return false;
+		}
 	}
 	
 	private MFolder getPointerOfPath(String path){
@@ -80,6 +99,7 @@ public class Directory{
 		}
 		return pointer;
 	}
+	
 	
 }
 
