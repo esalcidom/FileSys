@@ -26,6 +26,7 @@ import java.io.*;
 public class FileSys{
 	
 	private static OpenFileTable openTable;
+	private static Directory directory;
 	
 	public static void main (String args[]) {
 		
@@ -37,9 +38,20 @@ public class FileSys{
 		if(openTable == null){
 			openTable = OpenFileTable.getTable();
 		}
+		if(directory == null){
+			directory = Directory.getDirectory();
+		}
 		MFile file = openTable.getFile(IFile.getNameFromPath(path));
 		if(file == null){
 			//search on the directory
+			file = directory.searchFile(path);
+			if(file == null){
+				return null;
+			}
+			else{
+				openTable.addFile(file);
+				return file;
+			}
 		}
 		else{
 			return file;
