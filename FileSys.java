@@ -43,7 +43,7 @@ public class FileSys{
 				//search on the directory
 				file = directory.searchFile(path);
 				if(file == null){
-					new Exception("The file is not on the directory");
+					throw new Exception("The file is not on the directory");
 				}
 				else{
 					openTable.addFile(file);
@@ -52,12 +52,13 @@ public class FileSys{
 			}
 			//if the file is already on the open file table we send the message
 			else{
-				new Exception("The file is already on table");
+				throw new Exception("The file is already on table");
 			}
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());
 		}
+		return null;
 	}
 	
 	public static void create(String path){
@@ -79,12 +80,12 @@ public class FileSys{
 					directory.addFileToPath(path);
 				}
 				else{
-					new Exception("the file already exist");
+					throw new Exception("the file already exist");
 				}
 			}
 			//if the file is in the open file talbe we send the message
 			else{
-				new Exception("File is alredy created and open");
+				throw new Exception("File is alredy created and open");
 			}
 		}
 		catch(Exception e){

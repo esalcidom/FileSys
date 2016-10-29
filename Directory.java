@@ -59,7 +59,7 @@ public class Directory{
 		
 	}
 	
-	public void addFileToPath(String path){
+	public void addFileToPath(String path) throws Exception{
 		//add a file to a absolute path if the entire path exist
 		String[] absolutePath = path.split("/");
 		String fileName = absolutePath[absolutePath.length-1];
@@ -68,11 +68,11 @@ public class Directory{
 			pointer.addFile(new MFile(fileName));
 		}
 		else{
-			return null;
+			throw new Exception("[Directory] path not found on directory");
 		}
 	}
 	
-	public boolean deleteFileToPath(){
+	public boolean deleteFileToPath(String path){
 		//delete a file to a absolute path if the entire path and file exist
 		String[] absolutePath = path.split("/");
 		String fileName = absolutePath[absolutePath.length-1];
