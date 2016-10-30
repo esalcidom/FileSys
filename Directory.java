@@ -43,9 +43,39 @@ public class Directory{
 		return directory;
 	}
 	
+	public MFolder getCurrentFolder(){
+		return this.currentFolder;
+	}
+	
+	public void setCurrentFolder(MFolder folder){
+		//change the current pointer to a specific folder
+		this.currentFolder = folder;
+	}
+	
+	public ArrayList<IFile> getFileAndFolders(){
+		//the method return all the files and methods on the current folder
+		ArrayList<IFile> content = new ArrayList<IFile>();
+		for(MFile file:files){
+			content.add(file);
+		}
+		for(MFolder folder:folders){
+			content.add(folder);
+		}
+		return content;
+	}
+	
+	public MFolder getFolderAtPath(String path){
+		//get folder from a specific path
+		return getPointerOfPath(path);
+	}
+	
 	public void createFolder(String name){
 		//If we need to create a folder then the assignation is going to be on the current path
 		currentFolder.addFolder(new MFolder(name));
+	}
+	
+	public void setFileName(MFile file, String name){
+		file.setName(name);
 	}
 	
 	public MFile searchFile(String path){
@@ -58,7 +88,7 @@ public class Directory{
 		return pointer.searchFile(fileName);
 		
 	}
-	
+		
 	public void addFileToPath(String path) throws Exception{
 		//add a file to a absolute path if the entire path exist
 		String[] absolutePath = path.split("/");

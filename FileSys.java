@@ -77,6 +77,7 @@ public class FileSys{
 				//if not exist now add the file
 				if(file == null){
 					//add the new file
+					//NOTE: We need to set the blocks of memory set on the file
 					directory.addFileToPath(path);
 				}
 				else{
