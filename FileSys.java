@@ -94,13 +94,23 @@ public class FileSys{
 		}
 	}
 	
-	public static MFile write(String path, FileOutputStream data){
+	public static boolean write(String path, byte[] data){
 		//Need to search on the open file table if the file is open, we need the file open to write the data on it
 		//With the MFile instance we get the block we are going to write and set the data on the specific block of memory
-		
+		try{
+			init();
+			MFile file = openTable.getFile(IFile.getNameFromPath(path));
+			if(file != null){
+				//If the file is open now we can write the data.
+				file.write(data);
+			}
+		}
+		catch(Exception e){
+			
+		}
 	}
 	
-	public static FileInputStream read(String path){
+	public static byte[] read(String path){
 		//The read method need the instance of the File from the open file table and then read the content from a 
 		//specific blockIndex. 
 	}
@@ -112,13 +122,14 @@ public class FileSys{
 		//return true if the operation was success or false if cannot delete the file
 	}
 	
-	public static void init(){
+	private static void init(){
 		if(openTable == null){
 			openTable = OpenFileTable.getTable();
 		}
 		if(directory == null){
 			directory = Directory.getDirectory();
 		}
+		
 	}
 	
 }

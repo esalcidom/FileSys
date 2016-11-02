@@ -18,6 +18,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  * 
+ * We are going to use an asignation file table to link all the blocks that belongs to a file seting the index of the next block
+ * asigned.
+ * 
+ * We need to add a method to write and read a signle block of memory or a set of continuos block of a file.
+ * 
  * 
  */
 
@@ -26,9 +31,11 @@ public class MemoryTable{
 	
 	public static MemoryTable memoryTable;
 	private MemoryBlock[] table;
+	private short[] asignationFileTable;
 	
 	private MemoryTable(){
 		this.table = new MemoryBlock[5000];
+		this.asignationFileTable = new short[5000];
 	}
 	
 	public static MemoryTable getMemoryTable(){
