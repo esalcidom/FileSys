@@ -27,6 +27,7 @@ public class FileSys{
 	
 	private static OpenFileTable openTable;
 	private static Directory directory;
+	private static FileOrganizer fileOrganizer;
 	
 	public static void main (String args[]) {
 		
@@ -102,7 +103,8 @@ public class FileSys{
 			MFile file = openTable.getFile(IFile.getNameFromPath(path));
 			if(file != null){
 				//If the file is open now we can write the data.
-				file.write(data);
+				fileOrganizer.writeData(file, data);
+				
 			}
 		}
 		catch(Exception e){
@@ -128,6 +130,10 @@ public class FileSys{
 		}
 		if(directory == null){
 			directory = Directory.getDirectory();
+		}
+		
+		if(fileOrganizer == null){
+			fileOrganizer = FileOrganizer.getFileOrganizer();
 		}
 		
 	}

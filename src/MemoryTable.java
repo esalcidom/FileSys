@@ -45,6 +45,21 @@ public class MemoryTable{
 		return this.memoryTable;
 	}
 	
+	public short write(byte[] data, double numBlocks){
+		//To write first we need to assigne all the blocks to the memory table and then start to write
+	}
+	
+	private short getBlock(){
+		//search a single free block to write
+		short index;
+		for(short i=0;i<table.length;i++){
+			if(table[i]==null){
+				index = i;
+				break;
+			}
+		}
+		return index;
+	}
 	
 }
 
