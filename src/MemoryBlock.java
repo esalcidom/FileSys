@@ -22,7 +22,7 @@
  */
 
 
-public class Memoryblock{
+public class MemoryBlock{
 	
 	private byte[] data;
 	
