@@ -46,13 +46,16 @@ public class FileOrganizer{
 		//and the meta data of the file.
 		//if the file is not empty, we need to rewrite blocks of memory 
 		//(clear all the blocks already assigned to the file and search for new blocks)
-		if(file.getLocation()==null){
+		if(file.getLocation()==-1){
 			double blocks = Math.ceil((double)data.length / 512.0);
 			//send the data and the number of blocks we need to write on
-			short firstBlockToWrite = memoryTable.write(data, blocks);
+			short firstBlockToWrite = memoryTable.write(data, (int)blocks);
 			//update the asignation table and the file location
 			file.setLocation(firstBlockToWrite);
 		}
+                else{
+                    
+                }
 	}
 	
 	public byte[] readData(MFile file){

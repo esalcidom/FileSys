@@ -27,6 +27,7 @@ public class MFile extends IFile{
 	
 	public MFile(String name){
 		this.name = name;
+                this.location = -1;
 	}
 
 	public short getLocation(){
