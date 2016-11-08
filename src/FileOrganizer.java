@@ -39,7 +39,7 @@ public class FileOrganizer{
 		return FileOrganizer;
 	}
 	
-	public void writeData(MFile file, byte[] data){
+	public void writeData(MFile file, byte[] data)throws Exception{
 		//For design simplicity, every time we are going to write data for a file, we need to search
 		//first if the file has data already
 		//if no data assigned to a file, we can directly asign blocks of memory and set blocks to the asignation file table
@@ -50,12 +50,19 @@ public class FileOrganizer{
 			double blocks = Math.ceil((double)data.length / 512.0);
 			//send the data and the number of blocks we need to write on
 			short firstBlockToWrite = memoryTable.write(data, (int)blocks);
-			//update the asignation table and the file location
-			file.setLocation(firstBlockToWrite);
+			if(firstBlockToWrite==-1){
+				//we cannot store the file memory full
+				throw new Exception("Cannot store file, memory full");
+			}
+			else{
+				//update the file location
+				file.setLocation(firstBlockToWrite);
+			}	
 		}
-                else{
-                    
-                }
+    else{
+    	//delete all the blocks from the file and rewrite all the blocks
+      memoryTable.delete(file.getLocation());  
+    }
 	}
 	
 	public byte[] readData(MFile file){

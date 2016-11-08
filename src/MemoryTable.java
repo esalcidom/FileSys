@@ -39,6 +39,7 @@ public class MemoryTable{
 	private MemoryTable(){
 		this.table = new MemoryBlock[5000];
 		this.asignationFileTable = new short[5000];
+		Arrays.fill(this.asignationFileTable,-1);
 	}
 	
 	public static MemoryTable getMemoryTable(){
@@ -48,40 +49,46 @@ public class MemoryTable{
 		return memoryTable;
 	}
         
-        public void delete(int firstBlock){
-            //delete all the data from the firstBlock index and update the assignation file table
-        }
+  public void delete(short firstBlock){
+      //delete all the data from the firstBlock index and update the assignation file table
+      short index = firstBlock;
+      while(index!=-1){
+      	table[index] = new MemoryBlock();
+      	index = asignationFileTable[index];
+      	asignationFileTable[index] = -1;
+      }
+  }
 	
 	public short write(byte[] data, int numBlocks){
 		//To write first we need to assigne all the blocks to the memory table and then start to write
-                short[] indexBlocks = new short[numBlocks];
-                for(int i=0;i<numBlocks;i++){
-                    short indexBlock = getBlock();
-                    if(indexBlock == -1){
-                        //no all free blocks was found, return a negative value to send the message that memory is full
-                        return -1;
-                    }
-                    else{
-                        indexBlocks[i] = indexBlock;
-                    }
-                }
-                //write data into blocks
-                int indexData = 0;
-                for(int i=0;i<indexBlocks.length;i++){
-                    byte[] subArray;
-                    if((indexData + 512) > data.length){
-                        subArray = Arrays.copyOfRange(data, indexData, data.length);
-                    }
-                    else{
-                        subArray = Arrays.copyOfRange(data, indexData, indexData + 512);
-                    }
-                    table[i].setBlock(subArray);
-                }
-                //set the assignation file table
-                for(int i=1;i<indexBlocks.length;i++){
-                    asignationFileTable[indexBlocks[i-1]] = indexBlocks[i++];
-                }
-                return indexBlocks[0];
+	  short[] indexBlocks = new short[numBlocks];
+	  for(int i=0;i<numBlocks;i++){
+	      short indexBlock = getBlock();
+	      if(indexBlock == -1){
+	          //no all free blocks was found, return a negative value to send the message that memory is full
+	          return -1;
+	      }
+	      else{
+	          indexBlocks[i] = indexBlock;
+	      }
+	  }
+	  //write data into blocks
+	  int indexData = 0;
+	  for(int i=0;i<indexBlocks.length;i++){
+	      byte[] subArray;
+	      if((indexData + 512) > data.length){
+	          subArray = Arrays.copyOfRange(data, indexData, data.length);
+	      }
+	      else{
+	          subArray = Arrays.copyOfRange(data, indexData, indexData + 512);
+	      }
+	      table[i].setBlock(subArray);
+	  }
+	  //set the assignation file table
+	  for(int i=1;i<indexBlocks.length;i++){
+	      asignationFileTable[indexBlocks[i-1]] = indexBlocks[i++];
+	  }
+	  return indexBlocks[0];
 	}
 	
 	private short getBlock(){

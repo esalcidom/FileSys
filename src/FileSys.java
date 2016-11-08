@@ -122,6 +122,7 @@ public class FileSys{
 		//Search on the directory the file and then delete all the data on the blocks asign to the file to make them
 		//available and delete the instance from the directory
 		//return true if the operation was success or false if cannot delete the file
+
 	}
 	
 	private static void init(){
