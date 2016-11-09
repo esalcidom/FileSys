@@ -30,7 +30,37 @@ public class FileSys{
 	private static FileOrganizer fileOrganizer;
 	
 	public static void main (String args[]) {
-		
+            //parse String to byte and byte to String
+            /*
+            String s = "Hello world!";
+            String result = "";
+            try{
+                byte[] b = s.getBytes("UTF-8");
+                result = new String(b,"UTF-8");
+            }
+            catch(Exception e){
+                
+            }
+            System.out.println(result);
+            ///////////////////////
+            ByteBuffer buffer = ByteBuffer.allocate(100);
+            String s = "Hello world!";
+            String s2 = "What?";
+
+            String result = "";
+            try{
+                byte[] b = s.getBytes("UTF-8");
+                byte[] b2 = s2.getBytes("UTF-8");
+                buffer.put(b);
+                buffer.put(b2);
+                result = new String(buffer.array(),"UTF-8");
+            }
+            catch(Exception e){
+
+            }
+            System.out.println(result);
+            //////////////////////
+            */
 	}
 	
 	public static MFile open(String path, short blockIndex){
@@ -95,26 +125,42 @@ public class FileSys{
 		}
 	}
 	
-	public static boolean write(String path, byte[] data){
-		//Need to search on the open file table if the file is open, we need the file open to write the data on it
-		//With the MFile instance we get the block we are going to write and set the data on the specific block of memory
-		try{
-			init();
-			MFile file = openTable.getFile(IFile.getNameFromPath(path));
-			if(file != null){
-				//If the file is open now we can write the data.
-				fileOrganizer.writeData(file, data);
-				
-			}
-		}
-		catch(Exception e){
-			
-		}
+	public static void write(String path, byte[] data){
+            //Need to search on the open file table if the file is open, we need the file open to write the data on it
+            //With the MFile instance we get the block we are going to write and set the data on the specific block of memory
+            try{
+                init();
+                MFile file = openTable.getFile(IFile.getNameFromPath(path));
+                if(file != null){
+                    //If the file is open now we can write the data.
+                    fileOrganizer.writeData(file, data);
+                }
+                else{
+                    throw new Exception("File not opened");
+                }
+            }
+            catch(Exception e){
+                System.out.println(e.getMessage());
+            }
 	}
 	
 	public static byte[] read(String path){
-		//The read method need the instance of the File from the open file table and then read the content from a 
-		//specific blockIndex. 
+            //The read method need the instance of the File from the open file table and then read the content from a 
+            //specific blockIndex.
+            try{
+                init();
+                MFile file = openTable.getFile(IFile.getNameFromPath(path));
+                if(file != null){
+                    //If the file is open now we can write the data.
+                    fileOrganizer.readData(file);
+                }
+                else{
+                    throw new Exception("File not opened");
+                }
+            }
+            catch(Exception e){
+                System.out.println(e.getMessage());
+            }    
 	}
 	
 	public static boolean delete(String path){
