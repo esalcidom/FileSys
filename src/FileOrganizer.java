@@ -78,14 +78,14 @@ public class FileOrganizer{
         }
     }
 
-    public byte[] readData(MFile file){
+    public byte[] readData(MFile file)throws Exception{
             //We need to read all the data that is saved on the file, so we need to iterate from the start block memory assigned
             //to the file and then jump block to block index from the asignation file table
             //we need to concatenate all the blocks of memory and create a single array of bytes
             
             short index = file.getLocation();
             if(index==-1){
-                return null;
+                throw new Exception("File is blank");
             }
             else{
                 //read from index of file
@@ -93,9 +93,17 @@ public class FileOrganizer{
             }
     }
 
-    public boolean deleteData(MFile file){
+    public boolean deleteData(MFile file)throws Exception{
             //We itereate over the asignation file table of the file an start to delete all the data from the blocks
             //then we need to refresh all the values of the asignation file table
+            short index = file.getLocation();
+            if(index==-1){
+                throw new Exception("File is blank");
+            }
+            else{
+                memoryTable.delete(index);
+                return true;
+            }
     }
 }
 
