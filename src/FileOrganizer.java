@@ -93,7 +93,7 @@ public class FileOrganizer{
             }
     }
 
-    public boolean deleteData(MFile file)throws Exception{
+    public void deleteData(MFile file)throws Exception{
             //We itereate over the asignation file table of the file an start to delete all the data from the blocks
             //then we need to refresh all the values of the asignation file table
             short index = file.getLocation();
@@ -102,7 +102,6 @@ public class FileOrganizer{
             }
             else{
                 memoryTable.delete(index);
-                return true;
             }
     }
 }
