@@ -115,6 +115,22 @@ public class Directory{
 			return false;
 		}
 	}
+        
+        public boolean deleteFolderToPath(String path){
+            MFolder pointer = this.getPointerOfPath(path);
+            
+        }
+        
+        public IFile search(String path){
+            IFile file;
+            if(path.contains(".")){
+                file = this.searchFile(path);
+            }
+            else{
+                file = this.getPointerOfPath(path);
+            }
+            return file;
+        }
 	
 	private MFolder getPointerOfPath(String path){
 		String[] absolutePath = path.split("/");
