@@ -102,23 +102,34 @@ public class Directory{
 		}
 	}
 	
-	public boolean deleteFileToPath(String path){
+	public void deleteFileToPath(String path)throws Exception{
 		//delete a file to a absolute path if the entire path and file exist
 		String[] absolutePath = path.split("/");
 		String fileName = absolutePath[absolutePath.length-1];
 		MFolder pointer = getPointerOfPath(path);
+		boolean delteSuccess;
 		if(pointer!=null){
 			//search for the file with the name
-			return pointer.deleteFile(fileName);
+			delteSuccess = pointer.deleteFile(fileName);
+			if(!delteSuccess){
+				throw new Exception("")
+			}
 		}
 		else{
 			return false;
 		}
 	}
         
-        public boolean deleteFolderToPath(String path){
-            MFolder pointer = this.getPointerOfPath(path);
-            
+        public void deleteFolderToPath(String path){
+        	//Need to delete the last folder name so need the pointer of the father
+        	String[] values = path.split("/");
+        	String fatherPath;
+        	for(int i=0;i<values.length-1;i++){
+        		fatherPath += values[i] + "/";
+        	}
+        	fatherPath = fatherPath.subString(0,fatherPath-1);
+         	MFolder pointer = this.getPointerOfPath(fatherPath);
+          pointer.deleteFolder(values[values.length-1]);  
         }
         
         public IFile search(String path){
