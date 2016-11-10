@@ -1,5 +1,6 @@
 
-import java.util.Arrays;
+import java.nio.*;
+import java.util.*;
 
 /*
  * MemoryTable.java
@@ -89,6 +90,19 @@ public class MemoryTable{
           asignationFileTable[indexBlocks[i-1]] = indexBlocks[i++];
       }
       return indexBlocks[0];
+    }
+    
+    public byte[] read(short index){        
+        ArrayList<Short> indexList = new ArrayList<Short>();
+        while(index!=-1){
+            indexList.add(index);
+            index = asignationFileTable[index];
+        }
+        ByteBuffer buffer = ByteBuffer.allocate(indexList.size()*512);
+        for(Short i:indexList){
+            buffer.put(table[i].getBlock());
+        }
+        return buffer.array();
     }
 
     private short getBlock(){
