@@ -105,5 +105,10 @@ public class MFolder extends IFile{
 		return false;
 	}
 	
+	public void deleteFolder(String name){
+		MFolder folder = this.searchFolder(name);
+		folder = null;
+	}
+	
 }
 
