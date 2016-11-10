@@ -164,7 +164,7 @@ public class FileSys{
             return null;
 	}
 	
-	public static boolean delete(String path){
+	public static void delete(String path){
 		//Check if the file is close on the open file table so we can delete the file
 		//Search on the directory the file and then delete all the data on the blocks asign to the file to make them
 		//available and delete the instance from the directory
@@ -172,6 +172,7 @@ public class FileSys{
                 try{
                     init();
                     IFile file = openTable.getFile(IFile.getNameFromPath(path));
+                    boolean deleteSuccess = false;
                     if(file!=null){
                         throw new Exception("File is open, please close it first to delete it");
                     }
@@ -185,7 +186,7 @@ public class FileSys{
                                 if(file instanceof MFolder){
                                     if(((MFolder) file).getFiles().isEmpty()){
                                         //can delete folder
-                                        directory.
+                                        directory.deleteFolderToPath(path);
                                     }
                                     else{
                                         directory.deleteFileToPath(path);
@@ -194,7 +195,8 @@ public class FileSys{
                                 }
                                 //this is only to delete the data from memory if is a file to delete
                                 else{
-                                    return fileOrganizer.deleteData((MFile)file);
+                                    fileOrganizer.deleteData((MFile)file);
+                                    file = null;
                                 }
                             }
                     }
