@@ -1,3 +1,5 @@
+
+
 /*
  * FileOrganizer.java
  * 
@@ -82,7 +84,13 @@ public class FileOrganizer{
             //we need to concatenate all the blocks of memory and create a single array of bytes
             
             short index = file.getLocation();
-            
+            if(index==-1){
+                return null;
+            }
+            else{
+                //read from index of file
+                return memoryTable.read(index);
+            }
     }
 
     public boolean deleteData(MFile file){
