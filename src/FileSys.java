@@ -170,12 +170,39 @@ public class FileSys{
 		//available and delete the instance from the directory
 		//return true if the operation was success or false if cannot delete the file
                 try{
-                init();
-                
+                    init();
+                    IFile file = openTable.getFile(IFile.getNameFromPath(path));
+                    if(file!=null){
+                        throw new Exception("File is open, please close it first to delete it");
+                    }
+                    else{
+                        file = directory.search(path);
+                            if(file == null){
+                                throw new Exception("The file is not on the directory");
+                            }
+                            else{
+                                //We need to delete the file from the directory if is a file or delete the directory if is only empty
+                                if(file instanceof MFolder){
+                                    if(((MFolder) file).getFiles().isEmpty()){
+                                        //can delete folder
+                                        directory.
+                                    }
+                                    else{
+                                        directory.deleteFileToPath(path);
+                                        throw new Exception("The folder is not empty, you cannot delete it");
+                                    }
+                                }
+                                //this is only to delete the data from memory if is a file to delete
+                                else{
+                                    return fileOrganizer.deleteData((MFile)file);
+                                }
+                            }
+                    }
                 }
                 catch(Exception e){
                     System.out.println(e.getMessage());
                 }
+                return false;
 	}
 	
 	private static void init(){
