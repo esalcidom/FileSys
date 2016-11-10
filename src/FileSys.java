@@ -152,7 +152,7 @@ public class FileSys{
                 MFile file = openTable.getFile(IFile.getNameFromPath(path));
                 if(file != null){
                     //If the file is open now we can write the data.
-                    fileOrganizer.readData(file);
+                    return fileOrganizer.readData(file);
                 }
                 else{
                     throw new Exception("File not opened");
@@ -160,7 +160,8 @@ public class FileSys{
             }
             catch(Exception e){
                 System.out.println(e.getMessage());
-            }    
+            }
+            return null;
 	}
 	
 	public static boolean delete(String path){
@@ -168,7 +169,13 @@ public class FileSys{
 		//Search on the directory the file and then delete all the data on the blocks asign to the file to make them
 		//available and delete the instance from the directory
 		//return true if the operation was success or false if cannot delete the file
-
+                try{
+                init();
+                
+                }
+                catch(Exception e){
+                    System.out.println(e.getMessage());
+                }
 	}
 	
 	private static void init(){
