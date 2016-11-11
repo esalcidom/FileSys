@@ -204,7 +204,7 @@ public class FileSys{
                 catch(Exception e){
                     System.out.println(e.getMessage());
                 }
-                return false;
+                
 	}
 	
 	private static void init(){

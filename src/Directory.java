@@ -112,22 +112,22 @@ public class Directory{
 			//search for the file with the name
 			delteSuccess = pointer.deleteFile(fileName);
 			if(!delteSuccess){
-				throw new Exception("")
+				throw new Exception("The file was not deleted, not found");
 			}
 		}
 		else{
-			return false;
+                    throw new Exception("path not found");
 		}
 	}
         
         public void deleteFolderToPath(String path){
         	//Need to delete the last folder name so need the pointer of the father
         	String[] values = path.split("/");
-        	String fatherPath;
+        	String fatherPath = "";
         	for(int i=0;i<values.length-1;i++){
         		fatherPath += values[i] + "/";
         	}
-        	fatherPath = fatherPath.subString(0,fatherPath-1);
+        	fatherPath = fatherPath.substring(0, fatherPath.length());
          	MFolder pointer = this.getPointerOfPath(fatherPath);
           pointer.deleteFolder(values[values.length-1]);  
         }
