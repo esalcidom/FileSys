@@ -207,6 +207,24 @@ public class FileSys{
                 
 	}
 	
+	public static void close(String path){
+		//The method close will close the file if is in the open file table only.
+		//if the file is not in the table then do nothing
+		try{
+			init();
+			MFile file = openTable.getFile(IFile.getNameFromPath(path));
+			if(file!=null){
+				openTable.deleteFile(IFile.getNameFromPath(path));
+			}
+			else{
+				throw new Exception("File is not open");
+			}
+		}
+		catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+	}
+	
 	private static void init(){
 		if(openTable == null){
 			openTable = OpenFileTable.getTable();

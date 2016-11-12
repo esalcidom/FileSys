@@ -43,6 +43,11 @@ public class OpenFileTable{
 		this.openFiles.add(file);
 	}
 	
+	public void deleteFile(String fileName){
+		MFile file = getFile(fileName);
+		openFiles.remove(file);
+	}
+	
 	public MFile getFile(String fileName){
 		//the name of the file need to have the extention. NOT the path
 		for(MFile file : openFiles){
